@@ -99,10 +99,16 @@ export class SignupComponent implements OnInit {
       return 'You must enter an email address';
     } else if (this.email.hasError('email')) {
       return 'Not a valid email address';
-    } else if (this.password.hasError('minlength')) {
-      return 'Password must be at least 4 characters long';
-    } else if (this.confirmPassword.hasError('required')) {
+    }else if (this.dob.hasError('required')) {
+      return 'You must enter an date';
+    }else if (this.dob.hasError('date')) {
+      return 'Not a valid date';
+    } else if (this.password.hasError('required')) {
       return 'You must re enter a password';
+    } else if (this.password.hasError('minlength')) {
+      return 'Confirm password must be at least 4 characters long';
+    } else if (this.confirmPassword.hasError('required')) {
+      return 'You must re enter a confirm password';
     } else if (this.confirmPassword.hasError('minlength')) {
       return 'Password must be at least 4 characters long';
     } else {
