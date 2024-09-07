@@ -1,0 +1,93 @@
+<!--<ngx-spinner [fullScreen]="true" bdColor="rgba(0, 0, 0, 0.8)" color="#fff" size="medium" type="ball-scale-multiple"><p-->
+<!--  style="color: white"> Loading... </p></ngx-spinner>-->
+<div class="login-outer">
+  <div class="container-fluid p-0 m-0">
+    <div class="row m-0 p-0 content ">
+      <div class="col-lg-6 col-md-6 m-0 p-0 left-container ">
+        <img class="image" src="./assets/AdobeStock_460710131_Preview.jpeg">
+      </div>
+      <div class="col-lg-6 col-md-6 m-0 p-0 right-container ">
+        <form class="form">
+<!--          <h1 class="header">Welcome !</h1>-->
+          <div class="signup-form">
+            <div class="cmb">
+              <mat-form-field>
+                <mat-label>User Role</mat-label>
+                <mat-select (selectionChange)="handleRoleSelection($event)">
+                  <mat-option value=''>--Select--</mat-option>
+                  <mat-option value="USER">User</mat-option>
+                  <mat-option value="ADMIN">Admin</mat-option>
+                </mat-select>
+                <mat-error *ngIf="role.invalid">{{getErrorMessage()}}</mat-error>
+<!--                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy">
+                <mat-label>Enter your name</mat-label>
+                <input [formControl]="name" matInput placeholder="John" required>
+                <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy">
+                <mat-label>Enter your email</mat-label>
+                <input [formControl]="email" matInput placeholder="pat@example.com" required>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy">
+                <mat-label>Enter your contact</mat-label>
+                <input [formControl]="contactNumber" matInput placeholder="0791234567" required>
+                <mat-error *ngIf="contactNumber.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy">
+                <mat-label>Enter your address</mat-label>
+                <input [formControl]="address" matInput placeholder="Colombo 7, Sri Lanka" required>
+                <mat-error *ngIf="address.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy">
+                <mat-label>Select a date</mat-label>
+                <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [formControl]="dob">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="dob.invalid">Please select a valid date</mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy">
+                <mat-label>Enter your password</mat-label>
+                <input [formControl]="password" [type]="hide ? 'password' : 'text'" matInput required>
+                <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+                          matSuffix>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy">
+                <mat-label>Confirm your password</mat-label>
+                <input [formControl]="confirmPassword" [type]="hide2 ? 'password' : 'text'" matInput required>
+                <mat-error *ngIf="confirmPassword.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2"
+                          matSuffix>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+          <button (click)="userSignUp()" class="mat-raised-button btn mt-2" type="button">
+            Sign Up
+          </button>
+          <h2 class="message">Already registered? <a routerLink="/auth/login">Sign In</a></h2>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
