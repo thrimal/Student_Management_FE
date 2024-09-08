@@ -1,1 +1,125 @@
-<p>enrollment works!</p>
+<div class="main-outer">
+  <div class="form-header-container mb-3">
+    <h1 class="form-header">Enrollment Form</h1>
+    <div class="header-btn-wrapper">
+      <button (click)="clearEnrollmentFields()" class="btn btn-clear p-0 m-2" mat-raised-button type="button">
+        Clear All
+      </button>
+    </div>
+  </div>
+  <section class="row pb-4 m-0">
+    <div class="col-6">
+      <form class="forms">
+        <h2>Your Information</h2>
+        <div class="row p-0 m-0">
+          <div class="col-6">
+            <div>
+              <mat-form-field appearance="legacy" class="example-full-width">
+                <mat-label>Your name</mat-label>
+                <input [formControl]="name" matInput placeholder="John">
+                <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy" class="example-full-width">
+                <mat-label>Your address</mat-label>
+                <input [formControl]="address" matInput placeholder="John">
+                <mat-error *ngIf="address.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy" class="example-full-width">
+                <mat-label>Your date of birth</mat-label>
+                <input [formControl]="dob" matInput placeholder="John">
+                <mat-error *ngIf="dob.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-6">
+            <div>
+              <mat-form-field appearance="legacy" class="example-full-width">
+                <mat-label>Your email</mat-label>
+                <input [formControl]="email" matInput placeholder="John">
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="legacy" class="example-full-width">
+                <mat-label>Your contact number</mat-label>
+                <input [formControl]="contactNumber" matInput placeholder="John">
+                <mat-error *ngIf="contactNumber.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row p-0 m-0">
+          <div class="col-6">
+            <div class="cmb">
+              <mat-form-field class="example-full-width">
+                <mat-label>Courses</mat-label>
+                <mat-select [formControl]="course" (selectionChange)="handleCourseSelection($event)" required>
+                  <mat-option value=''>--Select--</mat-option>
+                  <mat-option *ngFor="let c of courses" [value]="c.course_id">
+                    {{ c.title }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="course.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-6">
+            <div>
+              <mat-form-field appearance="legacy" class="example-full-width">
+                <mat-label>Select a date</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [formControl]="enrollmentDate" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="enrollmentDate.invalid">Please select a valid date</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="btn-container mt-4">
+          <button class=" btn btn-primary m-1" id="btnAddEnrollment" mat-raised-button
+                  type="button"
+                  >Add to table
+          </button>
+          <button [disabled]="enrollments.length < 1" class=" btn btn-success m-1" id="btnSaveEnrollment" mat-raised-button
+                  type="button"
+                  (click)="saveEnrollment()">Submit Records
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-6">
+      <div class="table-container table-responsive" id="tblCustomer">
+        <table class="table table-bordered table-hover">
+          <thead class="bg-info">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Contact</th>
+            <th>NIC</th>
+          </tr>
+          </thead>
+          <tbody *ngFor="let c of enrollments">
+          <tr class="table-light">
+            <td><span>{{c.customerName}}</span></td>
+            <td><span>{{c.customerAddress}}</span></td>
+            <td><span>{{c.email}}</span></td>
+            <td><span>{{c.customerContact}}</span></td>
+            <td><span>{{c.nic}}</span></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+

@@ -56,7 +56,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .forms button {
   display: flex;
-  width: 70px;
+  width: 120px;
   height: 30px;
   padding: 0;
   position: relative;
@@ -115,27 +115,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   position: relative;
   width: 100%;
   text-align: center;
-}
-
-.flex{
-  position: relative;
-  display: flex;
-  height: auto;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-.thank-note{
-  text-align: center;
-  font-size: 14px;
-}
-.sub-total {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  color: indianred;
-  letter-spacing: 1px;
-  font-size: medium;
 }
 
 .table > thead > tr > th {

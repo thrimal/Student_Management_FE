@@ -8,18 +8,18 @@
       </div>
       <div class="col-lg-6 col-md-6 m-0 p-0 right-container ">
         <form class="form">
-<!--          <h1 class="header">Welcome !</h1>-->
+          <!--          <h1 class="header">Welcome !</h1>-->
           <div class="signup-form">
             <div class="cmb">
               <mat-form-field>
                 <mat-label>User Role</mat-label>
-                <mat-select (selectionChange)="handleRoleSelection($event)">
+                <mat-select (selectionChange)="handleRoleSelection($event)" required>
                   <mat-option value=''>--Select--</mat-option>
                   <mat-option value="USER">User</mat-option>
                   <mat-option value="ADMIN">Admin</mat-option>
                 </mat-select>
                 <mat-error *ngIf="role.invalid">{{getErrorMessage()}}</mat-error>
-<!--                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
+                <!--                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>-->
               </mat-form-field>
             </div>
             <div>
@@ -57,7 +57,7 @@
             <div>
               <mat-form-field appearance="legacy">
                 <mat-label>Select a date</mat-label>
-                <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [formControl]="dob">
+                <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [formControl]="dob" required>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="dob.invalid">Please select a valid date</mat-error>

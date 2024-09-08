@@ -35,6 +35,7 @@ export class SignupComponent implements OnInit {
     private router: Router,
     // private spinner: NgxSpinnerService
   ) {
+
   }
 
   ngOnInit(): void {

@@ -18,8 +18,4 @@ export class AuthService {
   public userSignUp(data: any) {
     return this.http.post<any>(this.baseUrl + '/signup', data);
   }
-
-  public findUserById(id: number) {
-    return this.http.get<any>(this.baseUrl + `/byId/${id}`);
-  }
 }
