@@ -68,7 +68,7 @@
                     {{ c.title }}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="course.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-error *ngIf="course.invalid">Please select course</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -87,11 +87,11 @@
         <div class="btn-container mt-4">
           <button class=" btn btn-primary m-1" id="btnAddEnrollment" mat-raised-button
                   type="button"
-                  >Add to table
+                  (click)="addRecordsToTheTable()">Add to table
           </button>
           <button [disabled]="enrollments.length < 1" class=" btn btn-success m-1" id="btnSaveEnrollment" mat-raised-button
                   type="button"
-                  (click)="saveEnrollment()">Submit Records
+                  (click)="saveEnrollments()">Submit Records
           </button>
         </div>
       </form>

@@ -3,6 +3,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {AuthService} from "../../../../../shared/services/auth-service/auth.service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-login',
@@ -18,15 +19,12 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private snackbar: MatSnackBar,
+    private cookieService: CookieService
     // private spinner: NgxSpinnerService
   ) {
   }
 
   ngOnInit(): void {
-    // this.spinner.show().then();
-    setTimeout(() => {
-      // this.spinner.hide().then();
-    }, 1000);
   }
 
   userLogin() {
@@ -40,14 +38,19 @@ export class LoginComponent implements OnInit {
       this.authService.userLogin(data).subscribe(
         (res: any) => {
           if (!res.hasError) {
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('token', res.token);
-            localStorage.setItem('role', res.data.role);
-            localStorage.setItem('userId', res.data.user_id);
+            this.cookieService.set('isLoggedIn', 'true');
+            this.cookieService.set('token', res.token,{
+              expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),// expires in 7 days
+              path: '/',
+              secure: true, // use only over HTTPS
+              sameSite: 'Lax'
+            });
+            this.cookieService.set('role', res.data.role);
+            this.cookieService.set('userId', res.data.user_id);
             this.router.navigate(['/user/enrollment']).then(() => {
               setTimeout(() => {
                 this.snackbar.open(res.message + " logged in as a " + res.data.role, 'OK', {duration: 2000});
-              }, 3000);
+              }, 1000);
             });
           } else {
             this.handleFailedLogin(res.message);
@@ -75,10 +78,7 @@ export class LoginComponent implements OnInit {
   }
 
   private handleFailedLogin(errorMessage: string) {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('userId');
+    this.cookieService.deleteAll();
     this.router.navigate(['/auth/login']).then(() => {
       this.snackbar.open(errorMessage, 'Cancel', {duration: 3000});
     });

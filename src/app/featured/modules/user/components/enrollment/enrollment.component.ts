@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {MatSelectChange} from "@angular/material/select";
 import {FormControl, Validators} from "@angular/forms";
 import {CourseService} from "../../../../../shared/services/course-service/course.service";
+import {UserService} from "../../../../../shared/services/user-service/user.service";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-enrollment',
@@ -21,7 +23,11 @@ export class EnrollmentComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
 
-  constructor(private courseService: CourseService) {
+  constructor(
+    private courseService: CourseService,
+    private userService: UserService,
+    private cookieService: CookieService
+  ) {
 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(new Date());
@@ -29,7 +35,23 @@ export class EnrollmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let userId = parseInt(<string>this.cookieService.get("userId"));
     this.getAllCourses();
+    this.findUser(userId);
+  }
+
+  findUser(userId:number){
+    this.userService.findUser(userId).subscribe((res:any)=>{
+      if(!res.hasError){
+        this.name.setValue(res.data.name);
+        this.address.setValue(res.data.address);
+        this.contactNumber.setValue(res.data.phone);
+        this.dob.setValue(res.data.dob);
+        this.email.setValue(res.data.email);
+      }
+    },error => {
+      console.log(error);
+    })
   }
 
   getAllCourses(){
@@ -42,12 +64,11 @@ export class EnrollmentComponent implements OnInit {
     })
   }
 
-  saveEnrollment() {
+  saveEnrollments() {
 
   }
 
   clearEnrollmentFields() {
-    this.name.setValue("kamal")
   }
 
   handleCourseSelection($event: MatSelectChange) {
@@ -55,6 +76,10 @@ export class EnrollmentComponent implements OnInit {
   }
 
   getErrorMessage() {
+
+  }
+
+  addRecordsToTheTable() {
 
   }
 }

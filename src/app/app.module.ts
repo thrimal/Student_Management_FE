@@ -8,6 +8,7 @@ import {RouterModule} from "@angular/router";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {HttpManagerInterceptor} from "./core/interceptor/http-manager.interceptor";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -19,10 +20,11 @@ import {HttpManagerInterceptor} from "./core/interceptor/http-manager.intercepto
     BrowserAnimationsModule,
     RouterModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS, useClass:HttpManagerInterceptor, multi:true}
+    {provide:HTTP_INTERCEPTORS, useClass:HttpManagerInterceptor, multi:true},
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
