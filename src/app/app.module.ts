@@ -9,6 +9,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {HttpManagerInterceptor} from "./core/interceptor/http-manager.interceptor";
 import {CookieService} from "ngx-cookie-service";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {CookieService} from "ngx-cookie-service";
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:HttpManagerInterceptor, multi:true},
-    CookieService
+    CookieService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

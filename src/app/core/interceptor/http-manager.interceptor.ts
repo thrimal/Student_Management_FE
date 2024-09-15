@@ -36,11 +36,8 @@ export class HttpManagerInterceptor implements HttpInterceptor {
       // Check if the token has expired
       if (decodedToken.exp < currentTime) {
         console.error('Token has expired');
-
-        // Optionally, trigger a token refresh here if your backend supports it
-        // Or just redirect to the login page
+        this.cookieService.deleteAll('/');
         this.router.navigate(['/auth/login']).then(r => {});
-
         return throwError({ status: 401, message: 'Token expired' });
       }
 
@@ -55,7 +52,7 @@ export class HttpManagerInterceptor implements HttpInterceptor {
       catchError((error) => {
         if (error.status === 401 || error.status === 403) {
           console.warn('Unauthorized access, redirecting...');
-          // Redirect to login or handle unauthorized access
+          this.cookieService.deleteAll('/');
           this.router.navigate(['/auth/login']).then(r => {});
         }
         return throwError(error);

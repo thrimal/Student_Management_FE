@@ -4,6 +4,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthService} from "../../../../../shared/services/auth-service/auth.service";
 import {Router} from "@angular/router";
 import {MatSelectChange} from "@angular/material/select";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-signup',
@@ -33,16 +34,13 @@ export class SignupComponent implements OnInit {
     private snackbar: MatSnackBar,
     private authService: AuthService,
     private router: Router,
+    private cookieService: CookieService
     // private spinner: NgxSpinnerService
   ) {
 
   }
 
   ngOnInit(): void {
-    // this.spinner.show().then();
-    setTimeout(() => {
-      // this.spinner.hide().then();
-    }, 1000);
   }
 
   userSignUp() {
@@ -60,6 +58,7 @@ export class SignupComponent implements OnInit {
       if (this.password.value !== this.confirmPassword.value) {
         this.snackbar.open('Verified passwords aren\'t match...', 'Cancel', {duration: 3000});
       } else {
+        this.cookieService.deleteAll('/');
         let data = {
           user_id: 0,
           name: this.name.value.trim(),

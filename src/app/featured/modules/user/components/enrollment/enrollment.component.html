@@ -2,13 +2,13 @@
   <div class="form-header-container mb-3">
     <h1 class="form-header">Enrollment Form</h1>
     <div class="header-btn-wrapper">
-      <button (click)="clearEnrollmentFields()" class="btn btn-clear p-0 m-2" mat-raised-button type="button">
+      <button (click)="clearAll()" class="btn btn-clear p-0 m-2" mat-raised-button type="button">
         Clear All
       </button>
     </div>
   </div>
   <section class="row pb-4 m-0">
-    <div class="col-6">
+    <div class="col-5">
       <form class="forms">
         <h2>Your Information</h2>
         <div class="row p-0 m-0">
@@ -62,13 +62,14 @@
             <div class="cmb">
               <mat-form-field class="example-full-width">
                 <mat-label>Courses</mat-label>
-                <mat-select [formControl]="course" (selectionChange)="handleCourseSelection($event)" required>
+                <mat-select [formControl]="course" (selectionChange)="handleCourseSelection()" required>
                   <mat-option value=''>--Select--</mat-option>
                   <mat-option *ngFor="let c of courses" [value]="c.course_id">
                     {{ c.title }}
                   </mat-option>
+                  <input type="hidden" [value]="courseName">
                 </mat-select>
-                <mat-error *ngIf="course.invalid">Please select course</mat-error>
+                <mat-error *ngIf="course.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -79,7 +80,7 @@
                 <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [formControl]="enrollmentDate" required>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="enrollmentDate.invalid">Please select a valid date</mat-error>
+                <mat-error *ngIf="enrollmentDate.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -96,7 +97,7 @@
         </div>
       </form>
     </div>
-    <div class="col-6">
+    <div class="col-7">
       <div class="table-container table-responsive" id="tblCustomer">
         <table class="table table-bordered table-hover">
           <thead class="bg-info">
@@ -104,17 +105,21 @@
             <th>Name</th>
             <th>Email</th>
             <th>Address</th>
+            <th>Birthday</th>
             <th>Contact</th>
-            <th>NIC</th>
+            <th>Course</th>
+            <th>Enrollment Date</th>
           </tr>
           </thead>
-          <tbody *ngFor="let c of enrollments">
+          <tbody *ngFor="let c of this.enrollments">
           <tr class="table-light">
             <td><span>{{c.customerName}}</span></td>
-            <td><span>{{c.customerAddress}}</span></td>
             <td><span>{{c.email}}</span></td>
+            <td><span>{{c.address}}</span></td>
+            <td><span>{{c.dob}}</span></td>
             <td><span>{{c.customerContact}}</span></td>
-            <td><span>{{c.nic}}</span></td>
+            <td><span>{{c.courseName}}</span></td>
+            <td><span>{{c.enrollment_date}}</span></td>
           </tr>
           </tbody>
         </table>
